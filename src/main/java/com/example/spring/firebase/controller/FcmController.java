@@ -1,27 +1,31 @@
 package com.example.spring.firebase.controller;
 
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.spring.firebase.service.FcmService;
-import com.example.spring.firebase.web.dto.FcmRequest;
+import com.example.spring.firebase.dto.FcmRequest;
+import com.example.spring.firebase.service.MyFirebaseService;
 
 @RestController
+@RequestMapping("/")
 public class FcmController {
 
-	private final FcmService fcmService;
+	private final MyFirebaseService myFirebaseService;
 
-	public FcmController(FcmService fcmService) {
-		this.fcmService = fcmService;
+	public FcmController(MyFirebaseService myFirebaseService) {
+		this.myFirebaseService = myFirebaseService;
 	}
 
 	@PostMapping("/send-fcm")
 	public void sendFcm(@RequestBody FcmRequest fcmRequest) throws Exception {
 
-		String response = fcmService.sendMessage(fcmRequest);
+		String response = this.myFirebaseService.sendMessage(fcmRequest);
 
 		System.out.print("response:" + response);
 
 	}
+
 }
